@@ -1,0 +1,14 @@
+[
+  {
+    "fish": "Temurov Akmal",
+    "phone": "+998993556656",
+    "balance": "24,000",
+    "tarif": "premium"
+  },
+  {
+    "fish": "Jalolov Qodir",
+    "phone": "+998973554556",
+    "balance": "35,000",
+    "tarif": "basic"
+  }
+]

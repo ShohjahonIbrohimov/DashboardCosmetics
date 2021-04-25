@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Foizlarni belgilash ( Sosset buyicha )",
+    "dataIndex": "fish",
+    "key": "fish"
+  },
+  {
+    "title": "Toifasi",
+    "dataIndex": "phone",
+    "key": "phone"
+  },
+  {
+    "title": "Olib kelgan foydalanuvchilari soni",
+    "dataIndex": "balance",
+    "key": "balance"
+  },
+  {
+    "title": "Foydalanuvchilari aktivligi / noaktivligi",
+    "dataIndex": "tarif",
+    "key": "tarif"
+  }
+]
