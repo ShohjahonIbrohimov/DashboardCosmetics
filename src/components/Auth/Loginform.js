@@ -8,7 +8,7 @@ const Loginform = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ login: "user@gmail.com", password: "123456" }));
+    dispatch(login({ name: "Avazbek", password: "farxod71sveta76" }));
   };
 
   return (
@@ -17,7 +17,7 @@ const Loginform = () => {
         <h1>Login</h1>
       </header>
       <form onSubmit={handleSubmit}>
-        <input className={styles.input} type='text' placeholder='Login' />
+        <input className={styles.input} type='text' placeholder='Name' />
         <input className={styles.input} type='text' placeholder='Password' />
         <button type='submit' className={styles.submit_btn}>
           Kirish

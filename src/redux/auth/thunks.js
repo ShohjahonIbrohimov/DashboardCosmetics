@@ -22,7 +22,7 @@ export const signup = createAsyncThunk("auth/signup", signupAsync);
 const loginAsync = async (data) => {
   try {
     const res = await axios({
-      url: "http://webmaster.fin-up.su/api/user/login",
+      url: "http://174.138.10.57/api/users/login ",
       method: "POST",
       data,
     });
