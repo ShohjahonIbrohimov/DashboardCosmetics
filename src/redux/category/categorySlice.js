@@ -5,6 +5,7 @@ import { get, create, deleteCat, update } from "./thunks";
 const initialState = {
   category: [],
   subcategory: [],
+  product: [],
 };
 
 export const categorySlice = createSlice({
@@ -36,7 +37,8 @@ export const categorySlice = createSlice({
         ];
       } else {
         let data = action.payload.res.data.data;
-        state.category[action.payload.index] = data;
+        console.log("Fired", action.payload);
+        state[action.payload.type][action.payload.index] = data;
       }
     },
   },

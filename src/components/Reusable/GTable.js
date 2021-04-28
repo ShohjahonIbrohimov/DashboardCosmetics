@@ -15,6 +15,7 @@ const UsersTable = ({
   setdefaults,
   handleSubCategory,
   subCategory,
+  table,
 }) => {
   const [searchText, setsearchText] = useState("");
   const [searchedColumn, setsearchedColumn] = useState("");
@@ -147,12 +148,16 @@ const UsersTable = ({
               title={c.title}
               dataIndex={c.dataIndex}
               key={c.key}
-              render={(text, data) => (
-                <span>
-                  {data?.title[c.key]}
-                  {console.log(c.key)}
-                </span>
-              )}
+              render={(text, data) => <span>{data?.title[c.key]}</span>}
+            />
+          );
+        } else if (c.dataIndex === "desc") {
+          return (
+            <Column
+              title={c.title}
+              dataIndex={c.dataIndex}
+              key={c.key}
+              render={(text, data) => <span>{data?.desc[c.key]}</span>}
             />
           );
         } else if (c.dataIndex === "action") {
@@ -167,7 +172,7 @@ const UsersTable = ({
                   <Button onClick={() => handleUpdate({ data, index })}>
                     Update
                   </Button>
-                  {!subCategory && (
+                  {!subCategory && table !== "product" && (
                     <Button onClick={() => handleSubCategory(data)}>
                       Sub category
                     </Button>

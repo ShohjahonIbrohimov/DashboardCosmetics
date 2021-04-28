@@ -23,7 +23,7 @@ const adminMenuItems = [
     title: "Bosh sahifa",
     icon: <HomeOutlined />,
     link: "/dashboard",
-  }
+  },
 ];
 
 const DashboardLayout = () => {

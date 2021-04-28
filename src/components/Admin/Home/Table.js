@@ -3,8 +3,9 @@ import GTable from "../../Reusable/GTable";
 import GModal from "../../Reusable/GModal";
 import GForm from "../../Reusable/GForm";
 import columns from "./columns.json";
+import productColumns from "./productColumns.json";
 import fields from "./formFields.json";
-import { Button, Space } from "antd";
+import { Button, Space, Radio } from "antd";
 import { PlusOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 // REDUX
 import { get, create, deleteCat, update } from "../../../redux/category/thunks";
@@ -14,14 +15,16 @@ const Table = () => {
   const [visible, setvisible] = useState(false);
   const [defaults, setdefaults] = useState(null);
   const [isCategory, setisCategory] = useState(true);
+  const [table, settable] = useState("category");
+  const [type, settype] = useState("category");
   const [subCategory, setsubCategory] = useState(null);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categoryReducer.category);
+  const products = useSelector((state) => state.categoryReducer.product);
   const subcategories = useSelector(
     (state) => state.categoryReducer.subcategory
   );
 
-  console.log(categories);
   const fields2 = [
     {
       name: "cat_id",
@@ -33,50 +36,78 @@ const Table = () => {
     { name: "ru", placeHolder: "Name in russian" },
   ];
 
+  const productForm = [
+    { name: "uz", placeHolder: "Name in uzbek" },
+    { name: "ru", placeHolder: "Name in russian" },
+    { name: "price", placeHolder: "Price" },
+    {
+      name: "sub_cat_id",
+      placeHolder: "Select category",
+      type: "select",
+      options: subcategories.map((c) => ({
+        value: c?._id,
+        label: c?.title?.uz,
+      })),
+    },
+    { name: "descUz", placeHolder: "Description in Uzbek" },
+    { name: "descRu", placeHolder: "Description in Russian" },
+    { name: "img", placeHolder: "Product Image", type: "image" },
+  ];
+
   const handleAddCategory = (data) => {
-    dispatch(create({ vals: data, isCategory }));
+    console.log(type);
+    dispatch(create({ vals: data, type }));
   };
 
   const handleUpdateCategory = (data) => {
     dispatch(
       update({
-        vals: { title: data },
+        vals: data,
         id: defaults.data._id,
         index: defaults.index,
-        subCategory,
+        type,
       })
     );
   };
 
   const handleDeleteCategory = (data) => {
-    dispatch(deleteCat({ id: data, subCategory }));
+    dispatch(deleteCat({ id: data, type }));
   };
 
   const handleOpenModalSub = () => {
     setdefaults(null);
     setvisible(true);
     setisCategory(false);
+    settype("subcategory");
   };
 
   const handleOpenModal = () => {
     setdefaults(null);
     setvisible(true);
     setisCategory(true);
+    settype("category");
   };
 
   const handleSubCategory = (data) => {
     setsubCategory(data);
+    settype("subcategory");
+  };
+
+  const handleProductOpen = (data) => {
+    setvisible(true);
+    settype("product");
   };
 
   useEffect(() => {
     dispatch(get("category"));
     dispatch(get("subcategory"));
+    dispatch(get("product"));
   }, []);
 
   return (
     <div>
       <GModal visible={visible} setvisible={setvisible}>
-        {isCategory && (
+        {isCategory && type !== "product" && (
           <GForm
             defaults={defaults}
             handleAddCategory={handleAddCategory}
@@ -84,12 +115,20 @@ const Table = () => {
             fields={fields}
           />
         )}
-        {!isCategory && (
+        {!isCategory && type !== "product" && (
           <GForm
             defaults={defaults}
             handleAddCategory={handleAddCategory}
             handleUpdateCategory={handleUpdateCategory}
             fields={fields2}
+          />
+        )}
+        {type === "product" && (
+          <GForm
+            defaults={defaults}
+            handleAddCategory={handleAddCategory}
+            handleUpdateCategory={handleUpdateCategory}
+            fields={productForm}
           />
         )}
       </GModal>
@@ -108,6 +147,25 @@ const Table = () => {
         >
           Add SubCategory
         </Button>
+        <Button
+          type='primary'
+          icon={<PlusOutlined />}
+          onClick={handleProductOpen}
+        >
+          Add Product
+        </Button>
+        <Radio.Group
+          options={[
+            { value: "category", label: "Categories" },
+            { value: "product", label: "Products" },
+          ]}
+          onChange={(e) => {
+            settype(e.target.value);
+            settable(e.target.value);
+          }}
+          value={table}
+          optionType='button'
+        />
         {subCategory && (
           <Button
             type='primary'
@@ -122,13 +180,16 @@ const Table = () => {
         setvisible={setvisible}
         handleDeleteCategory={handleDeleteCategory}
         handleSubCategory={handleSubCategory}
-        columns={columns}
+        columns={table === "product" ? productColumns : columns}
         subCategory={subCategory}
         data={
-          subCategory
+          subCategory && table !== "product"
             ? subcategories.filter((c) => c.cat_id === subCategory._id)
+            : table === "product"
+            ? products
             : categories
         }
+        table={table}
       />
     </div>
   );

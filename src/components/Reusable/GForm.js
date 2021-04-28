@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Select } from "antd";
+import ImageUpload from "./ImageUpload";
 
 const { Option } = Select;
 
@@ -10,14 +11,25 @@ const GForm = ({
   defaults,
 }) => {
   const [form] = Form.useForm();
+  const [imageUrl, setimageUrl] = useState("");
 
   const onFinish = (values) => {
-    defaults ? handleUpdateCategory(values) : handleAddCategory(values);
+    defaults
+      ? handleUpdateCategory({ ...values, img: imageUrl })
+      : handleAddCategory({ ...values, img: imageUrl });
+    form.resetFields();
   };
 
   useEffect(() => {
     if (defaults) {
-      form.setFieldsValue({ ...defaults.data.title });
+      let data = defaults.data;
+      form.setFieldsValue({
+        ...data,
+        ...data.title,
+        descUz: data?.desc?.uz,
+        descRu: data?.desc?.ru,
+      });
+      setimageUrl(defaults?.data?.img);
     } else {
       form.resetFields();
     }
@@ -43,6 +55,8 @@ const GForm = ({
               </Select>
             </Form.Item>
           );
+        } else if (field.type === "image") {
+          return <ImageUpload imageUrl={imageUrl} setimageUrl={setimageUrl} />;
         } else {
           return (
             <Form.Item
