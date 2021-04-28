@@ -16,6 +16,7 @@ const UsersTable = ({
   handleSubCategory,
   subCategory,
   table,
+  type,
 }) => {
   const [searchText, setsearchText] = useState("");
   const [searchedColumn, setsearchedColumn] = useState("");
@@ -169,17 +170,24 @@ const UsersTable = ({
               key={c.key}
               render={(text, data, index) => (
                 <Space>
-                  <Button onClick={() => handleUpdate({ data, index })}>
-                    Update
-                  </Button>
-                  {!subCategory && table !== "product" && (
+                  {type !== "exactSubcategory" && (
+                    <Button onClick={() => handleUpdate({ data, index })}>
+                      Update
+                    </Button>
+                  )}
+                  {type === "category" && (
                     <Button onClick={() => handleSubCategory(data)}>
                       Sub category
                     </Button>
                   )}
-                  <Button danger onClick={() => handleDeleteCategory(data._id)}>
-                    Delete
-                  </Button>
+                  {type !== "exactSubcategory" && (
+                    <Button
+                      danger
+                      onClick={() => handleDeleteCategory(data._id)}
+                    >
+                      Delete
+                    </Button>
+                  )}
                 </Space>
               )}
             />

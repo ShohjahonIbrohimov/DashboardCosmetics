@@ -90,7 +90,7 @@ const Table = () => {
 
   const handleSubCategory = (data) => {
     setsubCategory(data);
-    settype("subcategory");
+    settype("exactSubcategory");
   };
 
   const handleProductOpen = (data) => {
@@ -158,6 +158,7 @@ const Table = () => {
           options={[
             { value: "category", label: "Categories" },
             { value: "product", label: "Products" },
+            { value: "subcategory", label: "Subcategories" },
           ]}
           onChange={(e) => {
             settype(e.target.value);
@@ -166,11 +167,11 @@ const Table = () => {
           value={table}
           optionType='button'
         />
-        {subCategory && (
+        {type === "exactSubcategory" && (
           <Button
             type='primary'
             icon={<ArrowLeftOutlined />}
-            onClick={() => setsubCategory(null)}
+            onClick={() => settype("category")}
           ></Button>
         )}
       </Space>
@@ -183,13 +184,15 @@ const Table = () => {
         columns={table === "product" ? productColumns : columns}
         subCategory={subCategory}
         data={
-          subCategory && table !== "product"
+          type === "exactSubcategory"
             ? subcategories.filter((c) => c.cat_id === subCategory._id)
-            : table === "product"
+            : type === "subcategory"
+            ? subcategories
+            : type === "product"
             ? products
             : categories
         }
-        table={table}
+        type={type}
       />
     </div>
   );

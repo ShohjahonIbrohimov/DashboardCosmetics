@@ -74,9 +74,7 @@ const DashboardLayout = () => {
             ))}
           </Switch>
         </Content>
-        <Footer className={styles.footer}>
-          Mardex ©2021 Created by Raqamli Dunyo LLC Front End team
-        </Footer>
+       
       </Layout>
     </Layout>
   );
