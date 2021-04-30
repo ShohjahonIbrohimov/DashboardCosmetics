@@ -18,6 +18,7 @@ const GForm = ({
       ? handleUpdateCategory({ ...values, img: imageUrl })
       : handleAddCategory({ ...values, img: imageUrl });
     form.resetFields();
+    setimageUrl("");
   };
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const GForm = ({
       setimageUrl(defaults?.data?.img);
     } else {
       form.resetFields();
+      setimageUrl("");
     }
   }, [defaults]);
 

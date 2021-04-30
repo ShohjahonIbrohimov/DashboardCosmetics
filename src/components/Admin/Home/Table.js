@@ -96,6 +96,7 @@ const Table = () => {
   const handleProductOpen = (data) => {
     setvisible(true);
     settype("product");
+    setdefaults(null);
   };
 
   useEffect(() => {
