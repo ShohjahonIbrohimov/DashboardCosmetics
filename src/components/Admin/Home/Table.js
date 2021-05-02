@@ -182,7 +182,7 @@ const Table = () => {
         setvisible={setvisible}
         handleDeleteCategory={handleDeleteCategory}
         handleSubCategory={handleSubCategory}
-        columns={table === "product" ? productColumns : columns}
+        columns={type === "product" ? productColumns : columns}
         subCategory={subCategory}
         data={
           type === "exactSubcategory"
