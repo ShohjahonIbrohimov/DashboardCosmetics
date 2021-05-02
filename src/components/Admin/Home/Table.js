@@ -15,8 +15,7 @@ const Table = () => {
   const [visible, setvisible] = useState(false);
   const [defaults, setdefaults] = useState(null);
   const [isCategory, setisCategory] = useState(true);
-  const [table, settable] = useState("category");
-  const [type, settype] = useState("category");
+  const [type, settype] = useState("product");
   const [subCategory, setsubCategory] = useState(null);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categoryReducer.category);
@@ -40,18 +39,10 @@ const Table = () => {
     { name: "uz", placeHolder: "Name in uzbek" },
     { name: "ru", placeHolder: "Name in russian" },
     { name: "price", placeHolder: "Price" },
-    {
-      name: "sub_cat_id",
-      placeHolder: "Select category",
-      type: "select",
-      options: subcategories.map((c) => ({
-        value: c?._id,
-        label: c?.title?.uz,
-      })),
-    },
     { name: "descUz", placeHolder: "Description in Uzbek" },
     { name: "descRu", placeHolder: "Description in Russian" },
     { name: "img", placeHolder: "Product Image", type: "image" },
+    { name: "video", placeHolder: "Product Video", type: "video" },
   ];
 
   const handleAddCategory = (data) => {
@@ -74,19 +65,19 @@ const Table = () => {
     dispatch(deleteCat({ id: data, type }));
   };
 
-  const handleOpenModalSub = () => {
-    setdefaults(null);
-    setvisible(true);
-    setisCategory(false);
-    settype("subcategory");
-  };
+  // const handleOpenModalSub = () => {
+  //   setdefaults(null);
+  //   setvisible(true);
+  //   setisCategory(false);
+  //   settype("subcategory");
+  // };
 
-  const handleOpenModal = () => {
-    setdefaults(null);
-    setvisible(true);
-    setisCategory(true);
-    settype("category");
-  };
+  // const handleOpenModal = () => {
+  //   setdefaults(null);
+  //   setvisible(true);
+  //   setisCategory(true);
+  //   settype("category");
+  // };
 
   const handleSubCategory = (data) => {
     setsubCategory(data);
@@ -100,8 +91,8 @@ const Table = () => {
   };
 
   useEffect(() => {
-    dispatch(get("category"));
-    dispatch(get("subcategory"));
+    // dispatch(get("category"));
+    // dispatch(get("subcategory"));
     dispatch(get("product"));
   }, []);
 
@@ -134,20 +125,20 @@ const Table = () => {
         )}
       </GModal>
       <Space style={{ marginBottom: "1rem" }}>
-        <Button
+        {/* <Button
           type='primary'
           icon={<PlusOutlined />}
           onClick={handleOpenModal}
         >
           Add
-        </Button>
-        <Button
+        </Button> */}
+        {/* <Button
           type='primary'
           icon={<PlusOutlined />}
           onClick={handleOpenModalSub}
         >
           Add SubCategory
-        </Button>
+        </Button> */}
         <Button
           type='primary'
           icon={<PlusOutlined />}
@@ -155,7 +146,7 @@ const Table = () => {
         >
           Add Product
         </Button>
-        <Radio.Group
+        {/* <Radio.Group
           options={[
             { value: "category", label: "Categories" },
             { value: "product", label: "Products" },
@@ -174,7 +165,7 @@ const Table = () => {
             icon={<ArrowLeftOutlined />}
             onClick={() => settype("category")}
           ></Button>
-        )}
+        )} */}
       </Space>
 
       <GTable

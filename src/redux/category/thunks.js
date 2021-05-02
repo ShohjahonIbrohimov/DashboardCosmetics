@@ -37,7 +37,7 @@ const createAsync = async (values) => {
 
   try {
     const res = await axios({
-      url: `${baseurl}${values.type}`,
+      url: `${baseurl}/api/${values.type}`,
       method: "POST",
       data: getData({ type: values.type, vals }),
     });
@@ -54,7 +54,7 @@ export const create = createAsyncThunk("category/create", createAsync);
 const getAsync = async (type) => {
   try {
     const res = await axios({
-      url: `${baseurl}${type}/getAll`,
+      url: `${baseurl}/api/${type}/getAll`,
       method: "GET",
     });
     return { res, type };
@@ -70,7 +70,7 @@ export const get = createAsyncThunk("category/get", getAsync);
 const deleteAsync = async (data) => {
   try {
     const res = await axios({
-      url: `${baseurl}${data.type}/${data.id}`,
+      url: `${baseurl}/api/${data.type}/${data.id}`,
       method: "DELETE",
     });
     return { data, type: data.type };
@@ -88,7 +88,7 @@ const updateAsync = async (data) => {
   console.log(getData({ type: data.type, vals }));
   try {
     const res = await axios({
-      url: `${baseurl}${data.type}/${data.id}`,
+      url: `${baseurl}/api/${data.type}/${data.id}`,
       method: "PATCH",
       data: getData({ type: data.type, vals }),
     });

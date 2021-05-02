@@ -1,1 +1,2 @@
-export default "http://174.138.10.57/api/"
+let baseurl = "http://138.68.153.172";
+export default baseurl;

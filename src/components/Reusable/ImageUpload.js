@@ -3,27 +3,38 @@ import { Image } from "antd";
 import img from "../../assets/defaultImage.png";
 import axios from "axios";
 import styles from "../../styles/Reusable/ImageUpload.module.css";
+import baseurl from "../../utils/baseurl";
 
-const ImageUpload = ({ imageUrl, setimageUrl }) => {
+const ImageUpload = ({
+  imageUrl,
+  setimageUrl,
+  type,
+  videoUrl,
+  setvideoUrl,
+}) => {
   const handleChange = (e) => {
     var formData = new FormData();
-    formData.append("image", e.target.files[0]);
+    formData.append(type === "image" ? "image" : "file", e.target.files[0]);
 
     axios({
-      url: "http://174.138.10.57/api/users/uploadImage",
+      url: `${baseurl}/api/users/${
+        type === "image" ? "uploadImage" : "uploadFile"
+      }`,
       method: "POST",
       data: formData,
-    }).then((res) => setimageUrl(res.data.path));
+    }).then((res) =>
+      type === "image" ? setimageUrl(res.data.path) : setvideoUrl(res.data.path)
+    );
   };
 
   return (
     <div className={styles.upload_img}>
-      <Image
-        width='100%'
-        src={!imageUrl ? img : `http://174.138.10.57/${imageUrl}`}
-      />
+      {type === "image" && (
+        <Image width='100%' src={!imageUrl ? img : `${baseurl}/${imageUrl}`} />
+      )}
+      {type === "video" && <span>{videoUrl}</span>}
       <label className={styles.upload_btn_wrapper}>
-        Rasm yuklash
+        {type === "image" ? "Rasm" : "Video"} yuklash
         <input
           type='file'
           name='file'

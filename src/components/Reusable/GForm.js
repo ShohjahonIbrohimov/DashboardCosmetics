@@ -12,6 +12,7 @@ const GForm = ({
 }) => {
   const [form] = Form.useForm();
   const [imageUrl, setimageUrl] = useState("");
+  const [videoUrl, setvideoUrl] = useState("");
 
   const onFinish = (values) => {
     defaults
@@ -57,8 +58,16 @@ const GForm = ({
               </Select>
             </Form.Item>
           );
-        } else if (field.type === "image") {
-          return <ImageUpload imageUrl={imageUrl} setimageUrl={setimageUrl} />;
+        } else if (field.type === "image" || field.type === "video") {
+          return (
+            <ImageUpload
+              type={field.type}
+              imageUrl={imageUrl}
+              setimageUrl={setimageUrl}
+              videoUrl={videoUrl}
+              setvideoUrl={setvideoUrl}
+            />
+          );
         } else {
           return (
             <Form.Item
