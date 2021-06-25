@@ -65,19 +65,19 @@ const Table = () => {
     dispatch(deleteCat({ id: data, type }));
   };
 
-  // const handleOpenModalSub = () => {
-  //   setdefaults(null);
-  //   setvisible(true);
-  //   setisCategory(false);
-  //   settype("subcategory");
-  // };
+  const handleOpenModalSub = () => {
+    setdefaults(null);
+    setvisible(true);
+    setisCategory(false);
+    settype("subcategory");
+  };
 
-  // const handleOpenModal = () => {
-  //   setdefaults(null);
-  //   setvisible(true);
-  //   setisCategory(true);
-  //   settype("category");
-  // };
+  const handleOpenModal = () => {
+    setdefaults(null);
+    setvisible(true);
+    setisCategory(true);
+    settype("category");
+  };
 
   const handleSubCategory = (data) => {
     setsubCategory(data);
@@ -91,8 +91,8 @@ const Table = () => {
   };
 
   useEffect(() => {
-    // dispatch(get("category"));
-    // dispatch(get("subcategory"));
+    dispatch(get("category"));
+    dispatch(get("subcategory"));
     dispatch(get("product"));
   }, []);
 
@@ -125,28 +125,28 @@ const Table = () => {
         )}
       </GModal>
       <Space style={{ marginBottom: "1rem" }}>
-        {/* <Button
-          type='primary'
+        <Button
+          type="primary"
           icon={<PlusOutlined />}
           onClick={handleOpenModal}
         >
           Add
-        </Button> */}
-        {/* <Button
-          type='primary'
+        </Button>
+        <Button
+          type="primary"
           icon={<PlusOutlined />}
           onClick={handleOpenModalSub}
         >
           Add SubCategory
-        </Button> */}
+        </Button>
         <Button
-          type='primary'
+          type="primary"
           icon={<PlusOutlined />}
           onClick={handleProductOpen}
         >
           Add Product
         </Button>
-        {/* <Radio.Group
+        <Radio.Group
           options={[
             { value: "category", label: "Categories" },
             { value: "product", label: "Products" },
@@ -154,18 +154,17 @@ const Table = () => {
           ]}
           onChange={(e) => {
             settype(e.target.value);
-            settable(e.target.value);
           }}
-          value={table}
-          optionType='button'
+          value={type}
+          optionType="button"
         />
         {type === "exactSubcategory" && (
           <Button
-            type='primary'
+            type="primary"
             icon={<ArrowLeftOutlined />}
             onClick={() => settype("category")}
           ></Button>
-        )} */}
+        )}
       </Space>
 
       <GTable

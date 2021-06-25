@@ -1,2 +1,2 @@
-let baseurl = "http://138.68.153.172";
+let baseurl = "http://143.244.173.104";
 export default baseurl;

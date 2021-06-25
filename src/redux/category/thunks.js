@@ -31,7 +31,7 @@ const getData = ({ type, vals }) => {
 };
 
 // CREATE
-const createAsync = async (values) => {
+const createAsync = async (values, { rejectWithValue }) => {
   let data,
     vals = values.vals;
 
@@ -44,14 +44,14 @@ const createAsync = async (values) => {
     return { res, type: values.type };
   } catch (err) {
     // Handle Error Here
-    console.error(err);
+    return rejectWithValue([], err);
   }
 };
 
 export const create = createAsyncThunk("category/create", createAsync);
 
 // GET
-const getAsync = async (type) => {
+const getAsync = async (type, { rejectWithValue }) => {
   try {
     const res = await axios({
       url: `${baseurl}/api/${type}/getAll`,
@@ -60,14 +60,14 @@ const getAsync = async (type) => {
     return { res, type };
   } catch (err) {
     // Handle Error Here
-    console.error(err);
+    return rejectWithValue([], err);
   }
 };
 
 export const get = createAsyncThunk("category/get", getAsync);
 
 // DELETE
-const deleteAsync = async (data) => {
+const deleteAsync = async (data, { rejectWithValue }) => {
   try {
     const res = await axios({
       url: `${baseurl}/api/${data.type}/${data.id}`,
@@ -76,14 +76,14 @@ const deleteAsync = async (data) => {
     return { data, type: data.type };
   } catch (err) {
     // Handle Error Here
-    console.error(err);
+    return rejectWithValue([], err);
   }
 };
 
 export const deleteCat = createAsyncThunk("category/delete", deleteAsync);
 
 // UPDATE
-const updateAsync = async (data) => {
+const updateAsync = async (data, { rejectWithValue }) => {
   let vals = data.vals;
   console.log(getData({ type: data.type, vals }));
   try {
@@ -95,7 +95,7 @@ const updateAsync = async (data) => {
     return { res, index: data.index, type: data.type };
   } catch (err) {
     // Handle Error Here
-    console.error(err);
+    return rejectWithValue([], err);
   }
 };
 
