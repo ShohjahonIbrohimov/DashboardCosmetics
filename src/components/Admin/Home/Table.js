@@ -7,7 +7,7 @@ import productColumns from "./productColumns.json";
 import fields from "./formFields.json";
 import { Button, Space, Radio } from "antd";
 import { PlusOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-// REDUX
+
 import { get, create, deleteCat, update } from "../../../redux/category/thunks";
 import { useDispatch, useSelector } from "react-redux";
 
